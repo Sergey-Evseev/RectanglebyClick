@@ -23,6 +23,7 @@ namespace RectanglebyClick
     public partial class Form1 : Form
     {
         private int X, Y;
+        //счетчик лейблов
         static int count = 0;        
 
         public Form1()        {          
@@ -68,9 +69,12 @@ namespace RectanglebyClick
                 lbl.Size = new System.Drawing.Size(size1, size2);
                 lbl.BackColor = Color.RoyalBlue;
                 lbl.Text = (++count).ToString();
-                lbl.TextAlign = ContentAlignment.MiddleLeft;
+                lbl.TextAlign = ContentAlignment.MiddleCenter;
                 lbl.BorderStyle = BorderStyle.FixedSingle;
-                this.Controls.Add(lbl);                      
+                this.Controls.Add(lbl); //добавление лейбла в контейнер 
+                lbl.MouseClick += Lbl_MouseClick; //добавление обработчика события одинарный клик 
+                lbl.MouseDoubleClick += Lbl_MouseDoubleClick; //добавление обработчика события двойной клик
+
             }
         }//end of MouseUp handler
 
@@ -90,8 +94,6 @@ namespace RectanglebyClick
                 this.Text = $"{lbl.Width * lbl.Height}  {lbl.Location.X};{lbl.Location.Y}"; ;
             }
         }
-
-
         private void Form1_Load(object sender, EventArgs e)
         {
 
