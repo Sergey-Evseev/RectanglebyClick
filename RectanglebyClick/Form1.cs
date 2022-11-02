@@ -44,8 +44,8 @@ namespace RectanglebyClick
         {
             if (e.Button == MouseButtons.Left)
             { 
-            int size1 = e.X - X; 
-            int size2 = e.Y - Y;
+            int size1 = e.X - X; //разница координат Х между нажатием и отжатием левой кнопки
+            int size2 = e.Y - Y; //разница координат Y между нажатием и отжатием левой кнопки
 
                 if (size1 < 0)
                 {
@@ -65,25 +65,26 @@ namespace RectanglebyClick
                 }
                 //создание и инициализация лейбла по углам нажатия мыши
                 System.Windows.Forms.Label lbl = new System.Windows.Forms.Label();
-                lbl.Location = new System.Drawing.Point(X, Y);
+                lbl.Location = new System.Drawing.Point(X, Y); //лейбл создается в точке отжатия левой кнопки
                 lbl.Size = new System.Drawing.Size(size1, size2);
                 lbl.BackColor = Color.RoyalBlue;
                 lbl.Text = (++count).ToString();
                 lbl.TextAlign = ContentAlignment.MiddleCenter;
                 lbl.BorderStyle = BorderStyle.FixedSingle;
                 this.Controls.Add(lbl); //добавление лейбла в контейнер 
-                lbl.MouseClick += Lbl_MouseClick; //добавление обработчика события одинарный клик 
-                lbl.MouseDoubleClick += Lbl_MouseDoubleClick; //добавление обработчика события двойной клик
-
+                lbl.MouseClick += Lbl_MouseClick; //добавление обработчика события на одинарный клик на лейбл 
+                lbl.MouseDoubleClick += Lbl_MouseDoubleClick; //добавление обработчика события двойной клик на лейбл
             }
         }//end of MouseUp handler
 
+        //удаление лейбла по двойному клику
         private void Lbl_MouseDoubleClick(object sender, MouseEventArgs e)
         {
             if (e.Button == MouseButtons.Left)
             {
                 Label lbl = sender as Label;
                 this.Controls.Remove(lbl);
+                lbl.Dispose();
             }
         }
         private void Lbl_MouseClick(object sender, MouseEventArgs e)
