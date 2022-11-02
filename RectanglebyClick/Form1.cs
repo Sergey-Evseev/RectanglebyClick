@@ -10,17 +10,20 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
+using System.Drawing.Text;
 using System.Linq;
+using System.Reflection.Emit;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using Label = System.Windows.Forms.Label;
 
 namespace RectanglebyClick
 {
     public partial class Form1 : Form
     {
         private int X, Y;
-        static int count;        
+        static int count = 0;        
 
         public Form1()        {          
             
@@ -33,7 +36,6 @@ namespace RectanglebyClick
             {
                 X = e.X;
                 Y = e.Y;
-
             }
         }
         //обработчик отжатия кнопки
@@ -54,14 +56,41 @@ namespace RectanglebyClick
                 size2 = -size2;
                     Y = e.Y;
                 }
+                //проверка условия на минимальный размер
                 if ((size1 < 10) || (size2 < 10))
                 {
                     MessageBox.Show("Размер меньше 10 px, выберите больший размер", "Ошибка",
                         MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
-
+                //создание и инициализация лейбла по углам нажатия мыши
+                System.Windows.Forms.Label lbl = new System.Windows.Forms.Label();
+                lbl.Location = new System.Drawing.Point(X, Y);
+                lbl.Size = new System.Drawing.Size(size1, size2);
+                lbl.BackColor = Color.RoyalBlue;
+                lbl.Text = (++count).ToString();
+                lbl.TextAlign = ContentAlignment.MiddleLeft;
+                lbl.BorderStyle = BorderStyle.FixedSingle;
+                this.Controls.Add(lbl);                      
             }
         }//end of MouseUp handler
+
+        private void Lbl_MouseDoubleClick(object sender, MouseEventArgs e)
+        {
+            if (e.Button == MouseButtons.Left)
+            {
+                Label lbl = sender as Label;
+                this.Controls.Remove(lbl);
+            }
+        }
+        private void Lbl_MouseClick(object sender, MouseEventArgs e)
+        {
+            if (e.Button == MouseButtons.Right)
+            { 
+            Label lbl = sender as Label;
+                this.Text = $"{lbl.Width * lbl.Height}  {lbl.Location.X};{lbl.Location.Y}"; ;
+            }
+        }
+
 
         private void Form1_Load(object sender, EventArgs e)
         {
