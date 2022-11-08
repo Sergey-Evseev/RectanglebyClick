@@ -67,7 +67,12 @@ namespace RectanglebyClick
                 System.Windows.Forms.Label lbl = new System.Windows.Forms.Label();
                 lbl.Location = new System.Drawing.Point(X, Y); //лейбл создается в точке отжатия левой кнопки
                 lbl.Size = new System.Drawing.Size(size1, size2);
-                lbl.BackColor = Color.RoyalBlue;
+
+                Random rnd = new Random();
+                Color randomColor = Color.FromArgb(rnd.Next(256), rnd.Next(256), rnd.Next(256));
+                lbl.BackColor = randomColor;                    
+                //lbl.BackColor = Color.RoyalBlue;
+
                 lbl.Text = (++count).ToString();
                 lbl.TextAlign = ContentAlignment.MiddleCenter;
                 lbl.BorderStyle = BorderStyle.FixedSingle;
